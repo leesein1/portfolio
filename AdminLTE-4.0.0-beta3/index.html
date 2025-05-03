@@ -51,7 +51,9 @@
 <!-- 2550430 silee - end - cshtml 변경 시 _layout.cshtml 에 모을 것 -->
 
 <style>
-
+.col-right-padding-none{
+  padding-right: 0;
+}
 </style>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary  my-card" data-bs-theme="dark">
@@ -401,8 +403,9 @@
             </div>
             <!--end:: card 최근 고장이력 현시-->
           </div>
-
+          <!-- begin:: map 현시 -->
           <div class="col-md-4" >
+            <!-- begin:: 금일 발생 건수 / 처리 중 건수 / 완료 건수 / 완료율(%) -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">지도 보기</h3>
@@ -420,7 +423,113 @@
                 <div id="map" style="height: 500px;"></div>
               </div>
             </div>
+            <!-- end:: 금일 발생 건수 / 처리 중 건수 / 완료 건수 / 완료율(%) -->
           </div>
+          <!-- end:: map 현시 -->
+            
+          <!-- begin:: 우측 md 시작 -->
+          <div class="col-md-4">
+            <!-- begin :: 우측 md row 1 -->
+            <div class="row">
+              <!-- begin:: 금일 발생 건수 / 처리 중 건수 / 완료 건수 / 완료율(%)-->
+              <div class="row col-right-padding-none">
+                <div class="col-md-6 col-right-padding-none">
+                  <div class="info-box">
+                    <span class="info-box-icon text-bg-primary shadow-sm">
+                      <i class="bi bi-gear-fill"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">금일 발생(건)</span>
+                      <span class="info-box-number">
+                        100
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6 col-right-padding-none">
+                  <div class="info-box">
+                    <span class="info-box-icon text-bg-danger shadow-sm">
+                      <i class="bi bi-hand-thumbs-up-fill"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">처리중(건)</span>
+                      <span class="info-box-number">60</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <div class="row col-right-padding-none">
+                <!-- fix for small devices only -->
+                <!-- <div class="clearfix hidden-md-up"></div> -->
+                <div class="col-md-6 col-right-padding-none">
+                  <div class="info-box">
+                    <span class="info-box-icon text-bg-success shadow-sm">
+                      <i class="bi bi-cart-fill"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">완료 건</span>
+                      <span class="info-box-number">760</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6 col-right-padding-none">
+                  <div class="info-box">
+                    <span class="info-box-icon text-bg-warning shadow-sm">
+                      <i class="bi bi-people-fill"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">완료율(%)</span>
+                      <span class="info-box-number">40 %</span>
+
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- end:: 금일 발생 건수 / 처리 중 건수 / 완료 건수 / 완료율(%)-->
+            </div>
+            <!-- end :: 우측 md row 1 -->
+            <!-- begin :: 우측 md row 2 -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class ="card">
+                  <div class="card-header">
+                    <h3 class="card-title">고장 상세</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body" style="background-color: #343a40;">
+                    a
+                  </div>
+                  <div class="card-footer">
+                    asd
+                  </div>
+                </div>
+
+                <!-- /.card-header -->
+              </div>
+            </div>
+            <!-- end :: 우측 md row 2 -->
+          </div>
+          <!-- end:: 우측 md 끝 -->
         </div>
         <!--end::Row1 -->
 
@@ -452,20 +561,29 @@
   <!-- end::App Wrapper -->
   <!--begin::Script-->
 
-  <script>
-    function resizeObj() {
-      const tableHeight = $(window).height() - 258;
-      $('.fault-table').css('max-height', tableHeight + 'px');
-      $('#map').css('height', tableHeight + 'px');
-      map.invalidateSize();
-    }
-  
-    $(window).on('load resize', resizeObj);
-  </script>
-  
   <script type="module">
     import { initMap } from './dist/js/map.js';
     const map = initMap();
+
+    // 250503 silee - 모바일 체크 함수
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+    }
+
+    // 250503 silee - 화면 요소 div 리사이즈 함수 
+    function resizeObj() {
+      // 250503 silee - 테이블 리사이즈
+      const tableHeight = $(window).height() - 258;
+      $('.fault-table').css('max-height', tableHeight + 'px');
+      // 250503 silee - map 요소 리사이즈 
+      $('#map').css('height', tableHeight + 'px');
+      map.invalidateSize();
+
+      // 250503 silee - 모바일 margin-bottom
+      $('.row .card').toggleClass('mb-4', isMobile());
+    }
+  
+    $(window).on('load resize', resizeObj);
   </script>
 
   <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
