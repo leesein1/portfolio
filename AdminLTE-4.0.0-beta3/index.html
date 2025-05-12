@@ -55,7 +55,46 @@
   padding-right: 0;
 }
 </style>
-
+<style>
+  .custom-modal-size {
+    width: 60vw;          /* 100vw - 20% x 2 */
+    height: 90vh;         /* 100vh - 5% x 2 */
+    margin: 5vh auto;     /* 상하 5%, 좌우 자동 가운데 */
+    max-width: none;      /* 기본 제한 해제 */
+  }
+</style>
+<style>
+  .fault-detail-footer{
+    flex:1 1 auto; overflow-y: auto;
+  }
+</style>
+<style>
+  .flex-row-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .flex-row-info:last-child {
+    margin-bottom: 0px;
+  }
+  
+  .detail-span-box {
+    min-width: 127.5px; /* ✅ 고정 너비 설정 */
+  }
+  
+  .detail-span-box .badge {
+    font-size: 17px;
+    width: 100%; /* badge 안에서 꽉 채우기 (optional) */
+  }
+  .detail-span-text{
+    font-weight: 600;
+  }
+  </style>
+  
+  
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary  my-card" data-bs-theme="dark">
   <!-- start::App Wrapper -->
   <div class="app-wrapper">
@@ -226,7 +265,7 @@
             <!--begin:: card 최근 고장이력 현시-->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">실시간 고장이력</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -243,10 +282,11 @@
                   <table class="table m-0">
                     <thead>
                       <tr>
-                        <th>Order ID</th>
-                        <th>Item</th>
-                        <th>Status</th>
-                        <th>Popularity</th>
+                        <th>접수번호</th>
+                        <th>접수시간</th>
+                        <th>고장명</th>
+                        <th>처리상태</th>
+                        <th>담당자</th>
                       </tr>
                     </thead>
 
@@ -428,7 +468,7 @@
           <!-- end:: map 현시 -->
             
           <!-- begin:: 우측 md 시작 -->
-          <div class="col-md-4">
+          <div class="col-md-4 col-right-div">
             <!-- begin :: 우측 md row 1 -->
             <div class="row">
               <!-- begin:: 금일 발생 건수 / 처리 중 건수 / 완료 건수 / 완료율(%)-->
@@ -503,7 +543,7 @@
             <!-- begin :: 우측 md row 2 -->
             <div class="row">
               <div class="col-md-12">
-                <div class ="card">
+                <div class ="card fault-detail">
                   <div class="card-header">
                     <h3 class="card-title">고장 상세</h3>
                     <div class="card-tools">
@@ -516,14 +556,100 @@
                       </button>
                     </div>
                   </div>
-                  <div class="card-body" style="background-color: #343a40;">
-                    a
-                  </div>
-                  <div class="card-footer">
-                    asd
+                  <div class="card-body" style="background-color: #343a40; height: 305px; overflow-y: auto; flex:0 0 auto;">
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">접 수 번 호</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">접 수 시 간</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">배 정 시 간</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">완 료 시 간</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">접 수 자</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">사고 차량번호</span>
+                      </div>
+                      <div>
+                        <span></span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex-row-info">
+                      <div class="detail-span-box">
+                        <span class="badge rounded-pill text-bg-dark">위 치 정 보</span>
+                      </div>
+                      <div>
+                        <span class="detail-span-text">asd2</span>
+                      </div>
+                    </div>
+                  </div class="card-body">
+                  <div class="card-footer fault-detail-footer">
+                    <div style="margin-top: 15px; margin-bottom:15px; font-size: 1.1rem;">
+                      <span class="badge bg-secondary rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 28px; height: 28px; vertical-align: bottom;">
+                        1
+                      </span>
+                      <span>고장 조치 사항1 을 입력하세요.</span>
+                    </div>
+                    
+                    <div style="margin-top: 15px; margin-bottom:15px; font-size: 1.1rem;">
+                      <span class="badge bg-secondary rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 28px; height: 28px; vertical-align: bottom;">
+                        2
+                      </span>
+                      <span>고장 조치 사항2 을 입력하세요.</span>
+                    </div>
+                    
+                    <div style="margin-top: 15px; margin-bottom:15px; font-size: 1.1rem;">
+                      <span class="badge bg-secondary rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 28px; height: 28px; vertical-align: bottom;">
+                        3
+                      </span>
+                      <span>고장 조치 사항3 을 입력하세요.</span>
+                    </div>
+                    
+                    <div style="margin-top: 15px; margin-bottom:15px; font-size: 1.1rem;">
+                      <span class="badge bg-secondary rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 28px; height: 28px; vertical-align: bottom;">
+                        4
+                      </span>
+                      <span class="d-inline-flex align-items-center">고장 조치 사항4 을 입력하세요.</span>
+                    </div>                    
                   </div>
                 </div>
-
                 <!-- /.card-header -->
               </div>
             </div>
@@ -539,6 +665,25 @@
 
       </div>
       <!--end::App-content-->
+
+      <!--begin:: modal-->
+      <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog custom-modal-size"> <!-- 👈 클래스 추가 -->
+          <div class="modal-content h-100"> <!-- 세로 채움용 h-100 -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">모달 제목</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+            </div>
+            <div class="modal-body overflow-auto">
+              여기에 모달 내용을 입력하세요.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end:: modal-->
     </main>
     <!--end::App Main-->
 
@@ -564,6 +709,13 @@
   <script type="module">
     import { initMap } from './dist/js/map.js';
     const map = initMap();
+    
+    // 250512 silee - 모달 요소 만들기
+    const modalEl = document.getElementById('myModal');
+    const myModal = new bootstrap.Modal(modalEl);
+    $('.fault-tbody').on('dblclick', 'tr', function () {
+      myModal.show();
+    });
 
     // 250503 silee - 모바일 체크 함수
     function isMobile() {
@@ -572,12 +724,18 @@
 
     // 250503 silee - 화면 요소 div 리사이즈 함수 
     function resizeObj() {
-      // 250503 silee - 테이블 리사이즈
+      // 250503 silee - 고장 이력 테이블 리사이즈
       const tableHeight = $(window).height() - 258;
+      const faultDetailHeight = $(window).height() - 390;
+
+      // 차이 448 380이상 나면 footer조절 하자
       $('.fault-table').css('max-height', tableHeight + 'px');
       // 250503 silee - map 요소 리사이즈 
       $('#map').css('height', tableHeight + 'px');
       map.invalidateSize();
+      // 250512 silee - 고장 상세 리사이즈
+      $(".fault-detail").css('max-height', faultDetailHeight + 'px');
+      // 250512 silee - 고장 상세 footer 리사이즈..?
 
       // 250503 silee - 모바일 margin-bottom
       $('.row .card').toggleClass('mb-4', isMobile());
